@@ -5,12 +5,18 @@ import preprocess from 'svelte-preprocess';
 const config = {
 	// Consult https://github.com/sveltejs/svelte-preprocess
 	// for more information about preprocessors
-	preprocess: [preprocess({
-        postcss: true
-    })],
+	preprocess: [
+		preprocess({
+			postcss: true
+		})
+	],
 
 	kit: {
-		adapter: adapter()
+		adapter: adapter(),
+		alias: {
+			// this will match a file
+			'$lib/*': 'src/lib/*'
+		}
 	}
 };
 
