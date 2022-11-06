@@ -1,62 +1,82 @@
-<script>
+<script lang="ts">
+	import MdIcon from '$lib/components/MdIcon.svelte';
+	import Library from '$lib/components/pages/Library.svelte';
+	import Settings from '$lib/components/pages/Settings.svelte';
+	import Stats from '$lib/components/pages/Stats.svelte';
 	import { ThemeStore } from '$lib/stores/theme';
-	import {
-		Page,
-		Navbar,
-		Block,
-		Button,
-		List,
-		ListItem,
-		BlockTitle,
-		Radio,
-		Icon,
-		Link
-	} from 'konsta/svelte';
+	import { Page, Navbar, Link, Tabbar, TabbarLink } from 'konsta/svelte';
+	let activeTab: 'library' | 'stats' | 'settings' = 'library';
+	let displayTitle = 'Book tracker';
+	$: switch (activeTab) {
+		case 'library':
+			displayTitle = 'Library';
+			break;
+		case 'stats':
+			displayTitle = 'Stats';
+			break;
+		case 'settings':
+			displayTitle = 'Settings';
+			break;
+		default:
+			displayTitle = 'Book tracker';
+			break;
+	}
+
+	let hasLabels = true;
 </script>
 
+<svelte:head>
+	<title>Book tracker | {displayTitle}</title>
+</svelte:head>
+
 <Page>
-	<Navbar title="My App">
+	<Navbar title={displayTitle}>
 		<Link navbar iconOnly slot="right" onClick={() => ($ThemeStore.isDark = !$ThemeStore.isDark)}>
 			{#if $ThemeStore.isDark}
-				<Icon>🌙</Icon>
+				<MdIcon>light_mode</MdIcon>
 			{:else}
-				<Icon>☀️</Icon>
+				<MdIcon>dark_mode</MdIcon>
 			{/if}
 		</Link>
 	</Navbar>
 
-	<Block strong>
-		<p>Here is your SvelteKit & Konsta UI app. Let's see what we have here.</p>
-	</Block>
-	<BlockTitle>Navigation</BlockTitle>
-	<List>
-		<ListItem href="/" title="About" />
-		<ListItem href="/" title="Form" />
-	</List>
+	{#if activeTab == 'library'}
+		<Library />
+	{:else if activeTab == 'stats'}
+		<Stats />
+	{:else if activeTab == 'settings'}
+		<Settings />
+	{/if}
 
-	<Block strong class="flex space-x-4">
-		<Button>Button 1</Button>
-		<Button outline>Button 2</Button>
-	</Block>
-	<BlockTitle>Theme</BlockTitle>
-	<List strong class="">
-		<ListItem label title="Android">
-			<Radio
-				slot="after"
-				component="div"
-				value="Android"
-				checked={$ThemeStore.style == 'material'}
-				onChange={() => ($ThemeStore.style = 'material')}
-			/>
-		</ListItem>
-		<ListItem label title="ios">
-			<Radio
-				slot="after"
-				component="div"
-				value="ios"
-				checked={$ThemeStore.style == 'ios'}
-				onChange={() => ($ThemeStore.style = 'ios')}
-			/>
-		</ListItem>
-	</List>
+	<Tabbar icons class="left-0 bottom-0 fixed">
+		<TabbarLink
+			active={activeTab === 'library'}
+			onClick={() => (activeTab = 'library')}
+			label={hasLabels ? 'Library' : ''}
+		>
+			<svelte:fragment slot="icon">
+				<MdIcon>collections_bookmark</MdIcon>
+			</svelte:fragment>
+		</TabbarLink>
+
+		<TabbarLink
+			active={activeTab === 'stats'}
+			onClick={() => (activeTab = 'stats')}
+			label={hasLabels ? 'Stats' : ''}
+		>
+			<svelte:fragment slot="icon">
+				<MdIcon>monitoring</MdIcon>
+			</svelte:fragment>
+		</TabbarLink>
+
+		<TabbarLink
+			active={activeTab === 'settings'}
+			onClick={() => (activeTab = 'settings')}
+			label={hasLabels ? 'Settings' : ''}
+		>
+			<svelte:fragment slot="icon">
+				<MdIcon>settings</MdIcon>
+			</svelte:fragment>
+		</TabbarLink>
+	</Tabbar>
 </Page>
