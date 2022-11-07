@@ -1,13 +1,8 @@
 <script lang="ts">
 	import { Icon } from 'konsta/svelte';
+	export let outline = true;
 </script>
 
-<Icon class="material-symbols-outlined">
+<Icon class={!outline ? 'material-symbols-outlined' : 'material-symbols-fill'} {...$$restProps}>
 	<slot>settings</slot>
 </Icon>
-
-<style lang="postcss">
-	:global(.material-symbols-outlined) {
-		font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 48;
-	}
-</style>

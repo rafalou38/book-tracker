@@ -7,3 +7,5 @@ declare namespace App {
 	// interface Error {}
 	// interface Platform {}
 }
+
+// declare module 'konsta/svelte/shared/use-touch-ripple';

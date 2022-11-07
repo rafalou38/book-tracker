@@ -55,7 +55,7 @@
 			label={hasLabels ? 'Library' : ''}
 		>
 			<svelte:fragment slot="icon">
-				<MdIcon>collections_bookmark</MdIcon>
+				<MdIcon outline={activeTab !== 'library'}>collections_bookmark</MdIcon>
 			</svelte:fragment>
 		</TabbarLink>
 
@@ -65,7 +65,7 @@
 			label={hasLabels ? 'Stats' : ''}
 		>
 			<svelte:fragment slot="icon">
-				<MdIcon>monitoring</MdIcon>
+				<MdIcon outline={activeTab !== 'stats'}>monitoring</MdIcon>
 			</svelte:fragment>
 		</TabbarLink>
 
@@ -75,7 +75,7 @@
 			label={hasLabels ? 'Settings' : ''}
 		>
 			<svelte:fragment slot="icon">
-				<MdIcon>settings</MdIcon>
+				<MdIcon outline={activeTab !== 'settings'}>settings</MdIcon>
 			</svelte:fragment>
 		</TabbarLink>
 	</Tabbar>
