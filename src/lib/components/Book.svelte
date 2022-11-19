@@ -1,22 +1,18 @@
 <script lang="ts">
-	import { Button, Card, useTouchRipple } from '@rafaelmc-dev/konsta/svelte';
+	import { Button, Card, touchRipple } from '@rafaelmc-dev/konsta/svelte';
 
 	export let imageUrl: string;
-
-	let EBook: { current: HTMLButtonElement | null } = { current: null };
-	$: {
-		if (EBook.current) {
-			// 	debugger;
-			useTouchRipple(EBook, true);
-		}
-	}
 </script>
 
-<button class="book" style="--bg-url: url({imageUrl})" bind:this={EBook.current} />
+<button
+	class="book touch-ripple-primary"
+	style="--bg-url: url({imageUrl})"
+	use:touchRipple={true}
+/>
 
 <style lang="postcss">
 	.book {
-		@apply transition-colors focus:outline-none select-none overflow-hidden z-10 relative rounded-lg touch-ripple-white text-sm;
+		@apply focus:outline-none z-10;
 		/* height: 200px;
 		width: 150px; */
 		aspect-ratio: 72/104;

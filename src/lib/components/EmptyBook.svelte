@@ -1,17 +1,9 @@
 <script lang="ts">
-	import { Button, Card, useTouchRipple } from '@rafaelmc-dev/konsta/svelte';
+	import { Button, Card, touchRipple } from '@rafaelmc-dev/konsta/svelte';
 	import MdIcon from './MdIcon.svelte';
-
-	let EBook: { current: HTMLButtonElement | null } = { current: null };
-	$: {
-		if (EBook.current) {
-			// 	debugger;
-			useTouchRipple(EBook, true);
-		}
-	}
 </script>
 
-<button class="book" bind:this={EBook.current}>
+<button class="book touch-ripple-primary" use:touchRipple={true}>
 	<div class="content flex items-center justify-center flex-col ">
 		<!-- <span class="material-symbols-outlined w-1/2 aspect-square">add</span> -->
 		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" class="w-1/3 aspect-square">
@@ -26,13 +18,10 @@
 
 <style lang="postcss">
 	.book {
-		@apply transition-colors focus:outline-none select-none overflow-hidden z-10 relative rounded-lg touch-ripple-white text-sm;
-		position: relative;
-		/* height: 200px;
-		width: 150px; */
-		/* width: 200px; */
-		aspect-ratio: 72/104;
+		@apply focus:outline-none z-10;
 
+		position: relative;
+		aspect-ratio: 72/104;
 		background-position: center;
 		background-size: contain;
 		background-repeat: no-repeat;
