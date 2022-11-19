@@ -2,8 +2,6 @@
 	import { Button, Card, useTouchRipple } from 'konsta/svelte';
 	import MdIcon from './MdIcon.svelte';
 
-	export let imageUrl: string;
-
 	let EBook: { current: HTMLButtonElement | null } = { current: null };
 	$: {
 		if (EBook.current) {
