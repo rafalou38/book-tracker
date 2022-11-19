@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Button, Card, useTouchRipple } from 'konsta/svelte';
+	import { Button, Card, useTouchRipple } from '@rafaelmc-dev/konsta/svelte';
 
 	export let imageUrl: string;
 

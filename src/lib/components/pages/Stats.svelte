@@ -1,5 +1,5 @@
 <script>
-	import { Block } from 'konsta/svelte';
+	import { Block } from '@rafaelmc-dev/konsta/svelte';
 </script>
 
 <Block>

@@ -1,5 +1,5 @@
 <script>
-	import { Fab, Page } from 'konsta/svelte';
+	import { Fab, Page } from '@rafaelmc-dev/konsta/svelte';
 	import Book from '../Book.svelte';
 	import EmptyBook from '../EmptyBook.svelte';
 	import MdIcon from '../MdIcon.svelte';

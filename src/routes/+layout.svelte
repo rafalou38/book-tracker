@@ -1,6 +1,6 @@
 <script>
 	import '../app.postcss';
-	import { App, Page, Tabbar, TabbarLink } from 'konsta/svelte';
+	import { App, Page, Tabbar, TabbarLink } from '@rafaelmc-dev/konsta/svelte';
 	import { ThemeStore } from '$lib/stores/theme';
 	import MdIcon from '$lib/components/MdIcon.svelte';
 	import { activeTab, displayTitle } from '$lib/stores/page';

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Icon } from 'konsta/svelte';
+	import { Icon } from '@rafaelmc-dev/konsta/svelte';
 	export let outline = true;
 </script>
 

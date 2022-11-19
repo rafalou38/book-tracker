@@ -3,7 +3,7 @@
 	import { activeTab } from '$lib/stores/page';
 	import { ThemeStore } from '$lib/stores/theme';
 
-	import { Link, Navbar } from 'konsta/svelte';
+	import { Link, Navbar } from '@rafaelmc-dev/konsta/svelte';
 	import { onMount } from 'svelte';
 
 	onMount(() => activeTab.set('settings'));

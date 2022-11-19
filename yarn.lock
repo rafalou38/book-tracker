@@ -115,10 +115,10 @@
   resolved "https://registry.yarnpkg.com/@polka/url/-/url-1.0.0-next.21.tgz#5de5a2385a35309427f6011992b544514d559aa1"
   integrity sha512-a5Sab1C4/icpTZVzZc5Ghpz88yQtGOyNqYXcZgOssB2uuAr+wF/MvN6bgtW32q7HHrvBki+BsZ0OuNv6EV3K9g==
 
-"@rafaelmc-dev/konsta@^1.1.1":
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/@rafaelmc-dev/konsta/-/konsta-1.1.1.tgz#83f97280dcfc853d7ce337329bea556d1ac8f461"
-  integrity sha512-BrnGfW7Ipv3U77nuoFAbsHtDbreGuKT0WprZYuOKyRaSHnTB6MThIlgHYPXw71hTx4D32BKvyTg9mUmawvEAXQ==
+"@rafaelmc-dev/konsta@^1.1.2":
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/@rafaelmc-dev/konsta/-/konsta-1.1.2.tgz#98845a934cf8decfeb886448f6aa7542aa45bac9"
+  integrity sha512-GeJT7DxjJZj/M4ZtiGFx273YiXkWFSUG2kMz0emHoagUbnNJLqYsuzUHCeuNXk5DtZFgJ6X8Ysc5TfrWbXr7KQ==
 
 "@sveltejs/adapter-auto@next":
   version "1.0.0-next.86"

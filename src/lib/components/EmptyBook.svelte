@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Button, Card, useTouchRipple } from 'konsta/svelte';
+	import { Button, Card, useTouchRipple } from '@rafaelmc-dev/konsta/svelte';
 	import MdIcon from './MdIcon.svelte';
 
 	let EBook: { current: HTMLButtonElement | null } = { current: null };

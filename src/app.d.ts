@@ -8,4 +8,4 @@ declare namespace App {
 	// interface Platform {}
 }
 
-// declare module 'konsta/svelte/shared/use-touch-ripple';
+// declare module '@rafaelmc-dev/konsta/svelte/shared/use-touch-ripple';

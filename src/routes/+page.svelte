@@ -5,7 +5,7 @@
 	import Stats from '$lib/components/pages/Stats.svelte';
 	import { displayTitle } from '$lib/stores/page';
 	import { ThemeStore } from '$lib/stores/theme';
-	import { Page, Navbar, Link, Tabbar, TabbarLink } from 'konsta/svelte';
+	import { Page, Navbar, Link, Tabbar, TabbarLink } from '@rafaelmc-dev/konsta/svelte';
 </script>
 
 <!-- {#if activeTab == 'library'}
