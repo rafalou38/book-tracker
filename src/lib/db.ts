@@ -1,10 +1,13 @@
 import Dexie from 'dexie';
 import type { Table } from 'dexie';
 
+export type ReadingStatus = 'planned' | 'reading' | 'finished';
 export interface Book {
 	id?: number;
 	progress: {
 		current: number;
+		status: ReadingStatus;
+		eta: number;
 	};
 	stats: {
 		pagesCount: number;

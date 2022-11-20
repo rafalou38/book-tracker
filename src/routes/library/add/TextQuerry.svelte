@@ -1,9 +1,12 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
 	import { searchBookByNameFromGoogle } from '$lib/api/books';
 	import type { GoogleBookRessource } from '$lib/api/books/types';
+	import { addGoogleBookToLibrary } from '$lib/api/library';
 	import { Block, BlockTitle, List, ListInput, ListItem } from '@rafaelmc-dev/konsta/svelte';
 
 	let results: GoogleBookRessource[] = [];
+	export let query = '';
 	async function updateSearch(query: string) {
 		if (query) results = await searchBookByNameFromGoogle(query);
 		else results = [];
@@ -11,44 +14,51 @@
 		console.log(results);
 	}
 
-	// updateSearch('les fleurs du mal');
+	$: updateSearch(query);
 </script>
 
 <BlockTitle>Search by name</BlockTitle>
-<Block strong outlineIos class="space-y-2">
-	<div class="max-w-md list-none flex">
+<Block class="space-y-20">
+	<div class="list-none">
 		<ListInput
 			label="Query"
 			type="text"
 			outline
-			floatingLabel
+			placeholder="search by ISB, name, author, edition..."
+			value={query}
 			class="input"
-			onChange={(e) => updateSearch(e.target.value)}
+			onChange={(e) => (query = e.target.value)}
 		/>
 	</div>
-	{#if results.length > 0}
-		<List class="h-96 overflow-y-scroll">
-			{#each results as book}
-				<ListItem
-					chevronMaterial={false}
-					link
-					title="[{book.volumeInfo.language}] {book.volumeInfo.title}"
-					after={book.volumeInfo.publishedDate}
-					subtitle={book.volumeInfo.authors?.join(', ') || ''}
-					text={book.volumeInfo.publisher}
-				>
-					<img
-						slot="media"
-						src={book.volumeInfo.imageLinks?.smallThumbnail ||
-							'https://books.google.fr/googlebooks/images/no_cover_thumb.gif'}
-						class="h-16 rounded-lg"
-						alt="no thumbnail"
-					/>
-				</ListItem>
-			{/each}
-		</List>
-	{/if}
 </Block>
+{#if results.length > 0}
+	<List strong class="overflow-y-scroll h-[60vh]">
+		{#each results as book}
+			<ListItem
+				chevronMaterial={false}
+				link
+				title="[{book.volumeInfo.language}] {book.volumeInfo.title}"
+				after={book.volumeInfo.publishedDate}
+				subtitle={book.volumeInfo.authors?.join(', ') || ''}
+				text={book.volumeInfo.publisher}
+				onClick={async () => {
+					results = [];
+					query = '';
+					await addGoogleBookToLibrary(book);
+					goto('/library');
+				}}
+			>
+				<img
+					slot="media"
+					src={book.volumeInfo.imageLinks?.smallThumbnail ||
+						'https://books.google.fr/googlebooks/images/no_cover_thumb.gif'}
+					class="h-16 rounded-lg"
+					alt="no thumbnail"
+				/>
+			</ListItem>
+		{/each}
+	</List>
+{/if}
 
 <style lang="postcss">
 	:global(.input) {

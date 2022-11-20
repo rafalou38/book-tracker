@@ -4,22 +4,24 @@
 	import { activeTab } from '$lib/stores/page';
 
 	import { Block, BlockTitle, Link, Navbar, ListInput } from '@rafaelmc-dev/konsta/svelte';
-	import IbanQuerry from './IbanQuerry.svelte';
+	import ISBNQuerry from './ISBNQuerry.svelte';
 	import TextQuerry from './TextQuerry.svelte';
+
+	let query = '';
 
 	activeTab.set('');
 </script>
 
 <Navbar title="Track new book">
-	<Link navbar iconOnly slot="right" onclick={() => goto('/library')}>
+	<Link navbar iconOnly slot="right" href="/library">
 		<MdIcon>close</MdIcon>
 	</Link>
 </Navbar>
 
 <div class="wrapper">
 	<div class="page">
-		<TextQuerry />
-		<IbanQuerry />
+		<TextQuerry bind:query />
+		<ISBNQuerry bind:isbn={query} />
 	</div>
 </div>
 
@@ -30,7 +32,6 @@
 		overflow-y: scroll;
 	}
 	.page {
-		min-height: 100%;
 		position: relative;
 		grid-gap: 1em;
 	}
