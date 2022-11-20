@@ -18,6 +18,7 @@ export interface Book {
 		found: boolean;
 		isbn: string;
 		thumbnail: string;
+		isbnCover: boolean;
 		title: string;
 		description: string;
 		googleID: string;
@@ -32,7 +33,7 @@ class CustomDexie extends Dexie {
 	constructor() {
 		super('main');
 		this.version(1).stores({
-			books: '++id, info.title, progress.current'
+			books: '++id, info.title, progress.current, progress.status'
 		});
 	}
 }

@@ -31,7 +31,7 @@
 		/>
 	</div>
 </Block>
-{#if results.length > 0}
+{#if results?.length > 0}
 	<List strong class="overflow-y-scroll h-[60vh]">
 		{#each results as book}
 			<ListItem

@@ -1,4 +1,5 @@
 <script>
+	import { getLibrary } from '$lib/api/library';
 	import Book from '$lib/components/Book.svelte';
 	import EmptyBook from '$lib/components/EmptyBook.svelte';
 	import MdIcon from '$lib/components/MdIcon.svelte';
@@ -26,7 +27,7 @@
 		<!-- <Fab class="fixed right-4-safe bottom-4-safe z-20">
             <MdIcon slot="icon">collections_bookmark</MdIcon>
         </Fab> -->
-		<div class="book-wrapper">
+		<!-- <div class="book-wrapper">
 			<Book
 				imageUrl="http://books.google.com/books/publisher/content?id=aMwAEAAAQBAJ&printsec=frontcover&img=1&zoom=1"
 			/>
@@ -40,7 +41,17 @@
 			<Book
 				imageUrl="http://books.google.com/books/publisher/content?id=aMwAEAAAQBAJ&printsec=frontcover&img=1&zoom=1"
 			/>
-		</div>
+		</div> -->
+		{#await getLibrary()}
+			loading
+		{:then books}
+			{#each books as book}
+				<div class="book-wrapper">
+					<!-- <Book imageUrl="https://covers.openlibrary.org/b/ISBN/{book.info.isbn}-L.jpg" /> -->
+					<Book data={book} />
+				</div>
+			{/each}
+		{/await}
 		<div class="book-wrapper ">
 			<EmptyBook />
 		</div>
