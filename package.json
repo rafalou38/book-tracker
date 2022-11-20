@@ -36,6 +36,7 @@
 	"type": "module",
 	"dependencies": {
 		"@rafaelmc-dev/konsta": "^1.1.2",
+		"@sveltejs/adapter-static": "^1.0.0-next.48",
 		"dexie": "^3.2.2",
 		"html5-qrcode": "^2.3.1"
 	}
