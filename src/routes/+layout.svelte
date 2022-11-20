@@ -26,47 +26,49 @@
 	<Page class="flex flex-col">
 		<slot />
 
-		<div class="TabBarCover" />
-		<Tabbar icons class="left-0 bottom-0 fixed">
-			{@const libAct = $activeTab === 'library'}
-			<TabbarLink
-				href="/library"
-				active={libAct}
-				label={hasLabels ? 'Library' : ''}
-				onDragStart={() => false}
-				class="tabBarLink"
-			>
-				<svelte:fragment slot="icon">
-					<MdIcon outline={!libAct}>collections_bookmark</MdIcon>
-				</svelte:fragment>
-			</TabbarLink>
+		{#if $activeTab}
+			<div class="TabBarCover" />
+			<Tabbar icons class="left-0 bottom-0 fixed">
+				{@const libAct = $activeTab === 'library'}
+				<TabbarLink
+					href="/library"
+					active={libAct}
+					label={hasLabels ? 'Library' : ''}
+					onDragStart={() => false}
+					class="tabBarLink"
+				>
+					<svelte:fragment slot="icon">
+						<MdIcon outline={!libAct}>collections_bookmark</MdIcon>
+					</svelte:fragment>
+				</TabbarLink>
 
-			{@const statAct = $activeTab === 'stats'}
-			<TabbarLink
-				href="/stats"
-				active={statAct}
-				label={hasLabels ? 'Stats' : ''}
-				onDragStart={() => false}
-				class="tabBarLink"
-			>
-				<svelte:fragment slot="icon">
-					<MdIcon outline={!statAct}>monitoring</MdIcon>
-				</svelte:fragment>
-			</TabbarLink>
+				{@const statAct = $activeTab === 'stats'}
+				<TabbarLink
+					href="/stats"
+					active={statAct}
+					label={hasLabels ? 'Stats' : ''}
+					onDragStart={() => false}
+					class="tabBarLink"
+				>
+					<svelte:fragment slot="icon">
+						<MdIcon outline={!statAct}>monitoring</MdIcon>
+					</svelte:fragment>
+				</TabbarLink>
 
-			{@const cogAct = $activeTab === 'settings'}
-			<TabbarLink
-				href="/settings"
-				active={cogAct}
-				label={hasLabels ? 'Settings' : ''}
-				onDragStart={() => console.log('drag')}
-				class="tabBarLink"
-			>
-				<svelte:fragment slot="icon">
-					<MdIcon outline={!cogAct}>settings</MdIcon>
-				</svelte:fragment>
-			</TabbarLink>
-		</Tabbar>
+				{@const cogAct = $activeTab === 'settings'}
+				<TabbarLink
+					href="/settings"
+					active={cogAct}
+					label={hasLabels ? 'Settings' : ''}
+					onDragStart={() => console.log('drag')}
+					class="tabBarLink"
+				>
+					<svelte:fragment slot="icon">
+						<MdIcon outline={!cogAct}>settings</MdIcon>
+					</svelte:fragment>
+				</TabbarLink>
+			</Tabbar>
+		{/if}
 	</Page>
 </App>
 

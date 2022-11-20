@@ -1,9 +1,14 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
 	import { Button, Card, touchRipple } from '@rafaelmc-dev/konsta/svelte';
 	import MdIcon from './MdIcon.svelte';
 </script>
 
-<button class="book touch-ripple-primary" use:touchRipple={true}>
+<button
+	class="book touch-ripple-primary"
+	use:touchRipple={true}
+	on:click={() => goto('/library/add')}
+>
 	<div class="content flex items-center justify-center flex-col ">
 		<!-- <span class="material-symbols-outlined w-1/2 aspect-square">add</span> -->
 		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" class="w-1/3 aspect-square">
