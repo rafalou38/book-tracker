@@ -45,6 +45,7 @@
 		{#await getLibrary()}
 			loading
 		{:then books}
+			{@const e = console.log(books)}
 			{#each books as book}
 				<div class="book-wrapper">
 					<!-- <Book imageUrl="https://covers.openlibrary.org/b/ISBN/{book.info.isbn}-L.jpg" /> -->

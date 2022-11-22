@@ -31,15 +31,7 @@
 	}
 
 	function start() {
-		QR.start(
-			{ facingMode: 'environment' },
-			{
-				fps: 30,
-				qrbox: { width: 300, height: 150 }
-			},
-			onScanSuccess,
-			onScanFailure
-		);
+		QR.start({ facingMode: 'environment' }, { fps: 10, qrbox: 250 }, onScanSuccess, onScanFailure);
 		scanning = true;
 	}
 

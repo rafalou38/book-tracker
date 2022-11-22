@@ -15,13 +15,15 @@ export async function addGoogleBookToLibrary(book: GoogleBookRessource) {
 			found: true,
 			thumbnail:
 				book.volumeInfo.imageLinks?.thumbnail ||
-				'https://books.google.fr/googlebooks/images/no_cover_thumb.gif'
+				'https://books.google.fr/googlebooks/images/no_cover_thumb.gif',
+			isbnCover: false
 			// `https://covers.openlibrary.org/b/ISBN/${isbn}-L.jpg`
 		},
 		progress: {
 			current: 0,
 			eta: Date.now() + 1000 * 60 * 60 * 24 * 7 * 2,
-			status: 'planned'
+			status: 'planned',
+			daily: []
 		},
 		stats: {
 			pagesCount: book.volumeInfo.pageCount,
