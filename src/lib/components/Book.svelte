@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
 	import type { Book } from '$lib/db';
 	import { Button, Card, touchRipple } from '@rafaelmc-dev/konsta/svelte';
 
@@ -16,7 +17,12 @@
 	}
 </script>
 
-<button class="book touch-ripple-primary" style="--bg-url: url({cover})" use:touchRipple={true}>
+<button
+	class="book touch-ripple-primary"
+	style="--bg-url: url({cover})"
+	use:touchRipple={true}
+	on:click={() => goto(`/library/view?id=${data.id}`)}
+>
 	<span class="status {data.progress.status}" />
 	<span class="progress" style="--percent: {percent}%">
 		<span>{percent}%</span>

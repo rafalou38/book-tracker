@@ -8,6 +8,7 @@ export interface Book {
 		current: number;
 		status: ReadingStatus;
 		eta: number;
+		start: number;
 		daily: [string, number][];
 	};
 	stats: {

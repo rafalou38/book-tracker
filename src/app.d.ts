@@ -9,3 +9,4 @@ declare namespace App {
 }
 
 // declare module '@rafaelmc-dev/konsta/svelte/shared/use-touch-ripple';
+declare module 'svelte-frappe-charts';

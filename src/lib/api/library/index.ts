@@ -22,6 +22,7 @@ export async function addGoogleBookToLibrary(book: GoogleBookRessource) {
 		progress: {
 			current: 0,
 			eta: Date.now() + 1000 * 60 * 60 * 24 * 7 * 2,
+			start: 0,
 			status: 'planned',
 			daily: []
 		},
@@ -36,4 +37,9 @@ export async function addGoogleBookToLibrary(book: GoogleBookRessource) {
 export function getLibrary() {
 	if (!browser) return [];
 	return db.books.where('progress.status').notEqual('finished').toArray();
+}
+
+export function getBook(id: number) {
+	if (!browser) return [];
+	return db.books.where('id').equals(id).first();
 }
