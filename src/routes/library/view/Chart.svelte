@@ -5,23 +5,35 @@
 
 	export let book: Book;
 
+	const h24 = 1000 * 60 * 60 * 24;
+
 	const labels: string[] = [];
 	const ref: number[] = [];
 	const cur: number[] = [];
-	const start = book.progress.start || Date.now();
+	const start = book.progress.start || Date.now() - h24 * 5;
 
-	const h24 = 1000 * 60 * 60 * 24;
 	for (let i = start; i < book.progress.eta; i += h24) {
 		const date = new Date(i);
 		labels.push(date.toLocaleDateString());
 	}
 
 	let read = 0;
+	let timestamp = start;
 	for (let i = 0; i < labels.length; i++) {
+		// debugger;
+
+		if (timestamp < Date.now()) {
+			cur.push(read);
+		} else {
+			cur.push();
+		}
+
 		ref.push(Math.round((i / labels.length) * book.stats.pagesCount));
-		cur.push(read);
+
+		// console.log(timestamp < Date.now());
 
 		read += Math.floor(Math.random() * (book.stats.pagesCount / labels.length) * 2);
+		timestamp += h24;
 	}
 
 	let data = {
