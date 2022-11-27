@@ -1,62 +1,41 @@
 <script lang="ts">
 	import MdIcon from '$lib/components/MdIcon.svelte';
+	import NumberSwiper from '$lib/components/numberSwiper/NumberSwiper.svelte';
 	import type { Book } from '$lib/db';
-	import { Link, Navbar } from '@rafaelmc-dev/konsta/svelte';
-	// @ts-nocheck
-	import Chart from 'svelte-frappe-charts';
+	import { Fab, Link, Navbar, Stepper } from '@rafaelmc-dev/konsta/svelte';
+	import Chart from './Chart.svelte';
 
 	export let book: Book;
-
-	const labels: string[] = [];
-	const ref: number[] = [];
-	const cur: number[] = [];
-	const start = book.progress.start || Date.now();
-
-	const h24 = 1000 * 60 * 60 * 24;
-	for (let i = start; i < book.progress.eta; i += h24) {
-		const date = new Date(i);
-		labels.push(date.toLocaleDateString());
-	}
-
-	let read = 0;
-	for (let i = 0; i < labels.length; i++) {
-		ref.push((i / labels.length) * book.stats.pagesCount);
-		cur.push(read);
-
-		read += Math.floor(Math.random() * (book.stats.pagesCount / labels.length) * 2);
-	}
-
-	let data = {
-		labels,
-		datasets: [
-			{
-				values: ref,
-				name: 'Objectif'
-			},
-			{
-				values: cur,
-				name: 'Lus'
-			}
-		]
-	};
 </script>
 
-<Navbar title={book.info.title}>
-	<Link navbar iconOnly slot="left" href="/library">
-		<MdIcon>arrow_back</MdIcon>
-	</Link>
-	<Link navbar iconOnly slot="right" href="/library/edit?id={book.id}">
-		<MdIcon>edit</MdIcon>
-	</Link>
-</Navbar>
+<div class="flex max-h-52 p-2 bg-primary">
+	<div class="w-2/3 p-2">
+		<Link iconOnly href="/library">
+			<i class="material-symbols-fill">
+				<slot>arrow_back</slot>
+			</i>
+		</Link>
+		<h1 class="font-bold mt-2">
+			{book.info.title}
+		</h1>
+	</div>
+	<div class="w-1/3">
+		<img src={book.info.thumbnail} alt="cover" class="float-right" />
+	</div>
+</div>
 
-<Chart
-	{data}
-	lineOptions={{ hideDots: 1, spline: 0.25 }}
-	axisOptions={{ xIsSeries: true }}
-	colors={['#888', 'blue']}
-	type="line"
+<Chart {book} />
+
+<NumberSwiper
+	current={book.progress.current}
+	min={book.stats.pagesStart}
+	max={book.stats.pagesEnd}
+	on:change={console.log}
 />
+
+<Fab class="absolute right-4-safe bottom-4-safe z-20">
+	<MdIcon slot="icon">edit</MdIcon>
+</Fab>
 
 <!-- <div class="flex bg-md-dark-surface-1 p-4 py-8 gap-4 items-stretch">
 				<div class="w-1/3 max-w-[200px] shrink-0 grid">
@@ -68,10 +47,20 @@
 				</div>
 			</div> -->
 <style>
+	:global(.nav .text-left) {
+		max-width: 80%;
+		text-overflow: ellipsis;
+		overflow: hidden;
+	}
 	:global(.chart-container .axis, .chart-container .chart-label) {
 		opacity: 1;
 	}
 	:global(line) {
 		opacity: 0.25;
+	}
+
+	.material-symbols-fill {
+		font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 48;
+		color: #fff;
 	}
 </style>
