@@ -30,7 +30,9 @@
 	current={book.progress.current}
 	min={book.stats.pagesStart}
 	max={book.stats.pagesEnd}
-	on:change={console.log}
+	on:change={({ detail }) => {
+		book.progress.current = detail;
+	}}
 />
 
 <Fab class="absolute right-4-safe bottom-4-safe z-20">

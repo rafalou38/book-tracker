@@ -9,7 +9,7 @@ export interface Book {
 		status: ReadingStatus;
 		eta: number;
 		start: number;
-		daily: [string, number][];
+		daily: [number, number][];
 	};
 	stats: {
 		pagesCount: number;

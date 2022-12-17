@@ -49,10 +49,10 @@
 	}
 </script>
 
-<div class="flex">
+<div class="flex h-44">
 	<div class="w-1/3 grid place-items-center">
 		<Link iconOnly onClick={() => swiper.setColumnValue(1, 'down')}>
-			<i class="material-symbols-fill m-4"> remove </i>
+			<i class="material-symbols-fill m-8"> remove </i>
 		</Link>
 	</div>
 	<div class="w-1/3">
@@ -71,7 +71,7 @@
 	</div>
 	<div class="w-1/3 grid place-items-center">
 		<Link iconOnly onClick={() => swiper.setColumnValue(1, 'up')}>
-			<i class="material-symbols-fill  m-4"> add </i>
+			<i class="material-symbols-fill  m-8"> add </i>
 		</Link>
 	</div>
 </div>
@@ -79,6 +79,7 @@
 <style>
 	.number-swiper {
 		font-size: 5rem;
+		height: 100%;
 	}
 	.number-swiper-column {
 		width: 3ch;
@@ -88,7 +89,7 @@
 		text-align: center;
 		opacity: 0.25;
 		transition: opacity 100ms linear;
-		margin: 0.25em 0.1em 0.25em 0.1em;
+		margin: 0.25em 0.1em;
 	}
 	.number {
 		position: absolute;
