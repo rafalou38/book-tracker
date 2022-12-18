@@ -9,19 +9,27 @@
 	export let book: Book;
 </script>
 
-<div class="flex max-h-52 p-2 bg-primary">
-	<div class="w-2/3 p-2">
-		<Link iconOnly href="/library">
+<div class="flex max-h-52 p-4 viewHeader">
+	<div class="w-2/3 flex flex-col justify-between">
+		<Link iconOnly href="/library" style="width: max-content">
 			<i class="material-symbols-fill">
 				<slot>arrow_back</slot>
 			</i>
 		</Link>
-		<h1 class="font-bold mt-2">
+		<h1 class="font-bold ml-0 m-4">
 			{book.info.title}
 		</h1>
 	</div>
-	<div class="w-1/3">
-		<img src={book.info.thumbnail} alt="cover" class="float-right" />
+	<div class="w-1/3 p-1">
+		{#if book.info.isbnCover}
+			<img
+				src="https://covers.openlibrary.org/b/ISBN/{book.info.isbn}-L.jpg"
+				alt=""
+				class="w-full h-full object-contain"
+			/>
+		{:else}
+			<img src={book.info.thumbnail} alt="cover" class="w-full h-full object-contain" />
+		{/if}
 	</div>
 </div>
 
@@ -51,7 +59,10 @@
 					<p class="text-sm">{book.info.description}</p>
 				</div>
 			</div> -->
-<style>
+<style lang="postcss">
+	.viewHeader {
+		background: var(--surface-2);
+	}
 	:global(.nav .text-left) {
 		max-width: 80%;
 		text-overflow: ellipsis;
@@ -70,6 +81,6 @@
 
 	.material-symbols-fill {
 		font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 48;
-		color: #fff;
+		/* color: #fff; */
 	}
 </style>

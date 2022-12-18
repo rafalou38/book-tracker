@@ -77,6 +77,16 @@
 	:global(line) {
 		opacity: 0.25;
 	}
+	:global(.dark .chart-container) {
+		--charts-label-color: #9c9c9c;
+		--charts-legend-label: #9c9c9c;
+		--charts-tooltip-title: #9c9c9c;
+		--charts-tooltip-value: #9c9c9c;
+		--charts-tooltip-bg: var(--surface-2);
+	}
+	:global(.light .chart-container) {
+		--charts-axis-line-color: #7e7e7e;
+	}
 
 	.material-symbols-fill {
 		font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 48;
