@@ -115,12 +115,7 @@
 		disabled={book.progress.current == 0}>Reset reading history</Button
 	>
 	<br />
-	<Button
-		class="btn-reset"
-		outline
-		onClick={() => (confirmDelete = true)}
-		disabled={book.progress.current == 0}>Delete</Button
-	>
+	<Button class="btn-reset" outline onClick={() => (confirmDelete = true)}>Delete</Button>
 </Block>
 
 <Dialog
