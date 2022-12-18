@@ -38,7 +38,7 @@
 	<Chart {book} />
 {/if}
 
-<Fab class="absolute right-4-safe bottom-4-safe z-20">
+<Fab class="absolute right-4-safe bottom-4-safe z-20" href="/library/edit?id={book.id}">
 	<MdIcon slot="icon">edit</MdIcon>
 </Fab>
 

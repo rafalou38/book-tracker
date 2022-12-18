@@ -34,14 +34,6 @@
 </button>
 
 <style lang="postcss">
-	:global(.dark .book) {
-		--surface-1: rgb(var(--k-color-md-dark-surface-1));
-		--surface-2: rgb(var(--k-color-md-dark-surface-2));
-	}
-	:global(.light .book) {
-		--surface-1: rgb(var(--k-color-md-light-surface-1));
-		--surface-2: rgb(var(--k-color-md-light-surface-2));
-	}
 	.book {
 		@apply focus:outline-none z-10 relative rounded-lg;
 		/* height: 200px;

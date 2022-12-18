@@ -24,6 +24,15 @@ export class Day {
 		return this.date.getTime();
 	}
 	public export() {
-		return this.date.getDay() + '/' + (this.date.getMonth() + 1) + '/' + this.date.getFullYear();
+		return this.date.getDate() + '/' + (this.date.getMonth() + 1) + '/' + this.date.getFullYear();
+	}
+	public toDateInput() {
+		return (
+			this.date.getFullYear() +
+			'-' +
+			(this.date.getMonth() + 1).toString().padStart(2, '0') +
+			'-' +
+			this.date.getDate().toString().padStart(2, '0')
+		);
 	}
 }
