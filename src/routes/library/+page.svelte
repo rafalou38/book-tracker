@@ -24,24 +24,6 @@
 
 <div class="wrapper">
 	<div class="page">
-		<!-- <Fab class="fixed right-4-safe bottom-4-safe z-20">
-            <MdIcon slot="icon">collections_bookmark</MdIcon>
-        </Fab> -->
-		<!-- <div class="book-wrapper">
-			<Book
-				imageUrl="http://books.google.com/books/publisher/content?id=aMwAEAAAQBAJ&printsec=frontcover&img=1&zoom=1"
-			/>
-		</div>
-		<div class="book-wrapper">
-			<Book
-				imageUrl="http://books.google.com/books/publisher/content?id=aMwAEAAAQBAJ&printsec=frontcover&img=1&zoom=1"
-			/>
-		</div>
-		<div class="book-wrapper">
-			<Book
-				imageUrl="http://books.google.com/books/publisher/content?id=aMwAEAAAQBAJ&printsec=frontcover&img=1&zoom=1"
-			/>
-		</div> -->
 		{#await getLibrary()}
 			loading
 		{:then books}

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
 	import MdIcon from '$lib/components/MdIcon.svelte';
 	import { db, type Book } from '$lib/db';
 	import { Day } from '$lib/utils/time';
@@ -18,7 +19,8 @@
 
 	export let book: Book;
 
-	let confirmOpened = false;
+	let confirmClear = false;
+	let confirmDelete = false;
 
 	$: db.books.put(book);
 </script>
@@ -105,27 +107,51 @@
 		/>
 	</div>
 </Block>
-<Block
-	><Button
+<Block>
+	<Button
 		class="btn-reset"
 		outline
-		onClick={() => (confirmOpened = true)}
+		onClick={() => (confirmClear = true)}
 		disabled={book.progress.current == 0}>Reset reading history</Button
-	></Block
->
+	>
+	<br />
+	<Button
+		class="btn-reset"
+		outline
+		onClick={() => (confirmDelete = true)}
+		disabled={book.progress.current == 0}>Delete</Button
+	>
+</Block>
 
-<Dialog opened={confirmOpened} onBackdropClick={() => (confirmOpened = false)} class="duration-200">
+<Dialog
+	opened={confirmClear || confirmDelete}
+	onBackdropClick={() => {
+		confirmClear = false;
+		confirmDelete = false;
+	}}
+	class="duration-200"
+>
 	<svelte:fragment slot="title">Are you sure</svelte:fragment>
 	This action can't be reverted
 	<svelte:fragment slot="buttons">
-		<DialogButton onClick={() => (confirmOpened = false)}>No</DialogButton>
+		<DialogButton
+			onClick={() => {
+				confirmClear = false;
+				confirmDelete = false;
+			}}>No</DialogButton
+		>
 		<DialogButton
 			strong
-			onClick={() => {
-				confirmOpened = false;
-				book.progress.daily.clear();
-				book.progress.current = 0;
-				book = book;
+			onClick={async () => {
+				if (confirmClear) {
+					confirmClear = false;
+					book.progress.daily.clear();
+					book.progress.current = 0;
+					book = book;
+				} else if (confirmDelete) {
+					await db.books.delete(book.id);
+					goto('/library');
+				}
 			}}>Yes</DialogButton
 		>
 	</svelte:fragment>
@@ -162,7 +188,7 @@
 		width: 100%;
 		padding: 16px;
 		margin: 4px 0;
-		background: rgb(var(--k-color-md-dark-surface-3));
+		background: var(--surface-3);
 	}
 	:global(.cover-block) {
 		display: flex;
