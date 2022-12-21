@@ -2,6 +2,7 @@
 	import MdIcon from '$lib/components/MdIcon.svelte';
 	import NumberSwiper from '$lib/components/numberSwiper/NumberSwiper.svelte';
 	import type { Book } from '$lib/db';
+	import { setBookProgress } from '$lib/utils/Library';
 	import { Fab, Link, Navbar, Stepper } from '@rafaelmc-dev/konsta/svelte';
 	import Chart from './Chart.svelte';
 
@@ -24,16 +25,18 @@
 	</div>
 </div>
 
-<Chart {book} />
-
 <NumberSwiper
 	current={book.progress.current}
 	min={book.stats.pagesStart}
 	max={book.stats.pagesEnd}
-	on:change={({ detail }) => {
-		book.progress.current = detail;
+	on:change={async ({ detail }) => {
+		book = await setBookProgress(book, detail);
 	}}
 />
+
+{#if book.progress.status != 'planned'}
+	<Chart {book} />
+{/if}
 
 <Fab class="absolute right-4-safe bottom-4-safe z-20">
 	<MdIcon slot="icon">edit</MdIcon>
@@ -59,6 +62,10 @@
 	}
 	:global(line) {
 		opacity: 0.25;
+	}
+
+	:global(span.text-icon-material) {
+		display: contents;
 	}
 
 	.material-symbols-fill {

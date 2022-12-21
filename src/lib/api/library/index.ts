@@ -24,7 +24,7 @@ export async function addGoogleBookToLibrary(book: GoogleBookRessource) {
 			eta: Date.now() + 1000 * 60 * 60 * 24 * 7 * 2,
 			start: 0,
 			status: 'planned',
-			daily: []
+			daily: new Map()
 		},
 		stats: {
 			pagesCount: book.volumeInfo.pageCount,

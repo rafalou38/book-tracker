@@ -5,11 +5,12 @@ export type ReadingStatus = 'planned' | 'reading' | 'finished';
 export interface Book {
 	id?: number;
 	progress: {
-		current: number;
 		status: ReadingStatus;
 		eta: number;
 		start: number;
-		daily: [number, number][];
+		// Date, progress
+		current: number;
+		daily: Map<number, number>;
 	};
 	stats: {
 		pagesCount: number;

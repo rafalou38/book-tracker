@@ -1,68 +1,65 @@
 <script lang="ts">
 	import type { Book } from '$lib/db';
+	import { Day } from '$lib/utils/time';
 	// @ts-nocheck
 	import Chart from 'svelte-frappe-charts';
 
 	export let book: Book;
 	const h24 = 1000 * 60 * 60 * 24;
 
-	// Compute Labels
-	const labels: string[] = [];
-	const start = book.progress.start || Date.now() - h24 * 5;
-	for (let i = start; i < book.progress.eta; i += h24) {
-		const date = new Date(i);
-		labels.push(date.toLocaleDateString());
+	let labels: number[] = [];
+	for (let i = book.progress.start; i < book.progress.eta; i += h24) {
+		const date = new Day(i);
+		labels.push(date.n());
 	}
 
-	function computeDatasets(book: Book) {
+	function computeData(book: Book) {
 		const ref: number[] = [];
-		const cur: number[] = [];
-		let read = 0;
-		let timestamp = start;
+		const cur: (number | undefined)[] = [];
+		let timestamp = book.progress.start;
 		for (let i = 0; i < labels.length; i++) {
-			// debugger;
-
-			if (timestamp < Date.now()) {
-				cur.push(read);
-			} else {
-				cur.push();
-			}
-
 			ref.push(Math.round((i / labels.length) * book.stats.pagesCount));
 
-			// console.log(timestamp < Date.now());
-
-			read += Math.floor(Math.random() * (book.stats.pagesCount / labels.length) * 2);
+			const ofDay = book.progress.daily.get(labels[i]);
+			if (ofDay) cur.push(ofDay);
+			else cur.push(undefined);
 			timestamp += h24;
 		}
-		cur.push(book.progress.current);
 
-		return [
-			{
-				values: ref,
-				name: 'Objectif'
-			},
-			{
-				values: cur,
-				name: 'Lus'
-			}
-		];
+		const localLabels = labels.map((n) =>
+			new Date(n).toLocaleDateString(undefined, {
+				weekday: 'short',
+				month: 'short',
+				day: 'numeric'
+			})
+		);
+
+		return {
+			labels: localLabels,
+			datasets: [
+				{
+					values: ref,
+					name: 'Objectif'
+				},
+				{
+					values: cur,
+					name: 'Lus'
+				}
+			]
+		};
 	}
 
-	let data = {
-		labels,
-		datasets: computeDatasets(book)
-	};
+	let data = computeData(book);
 
 	$: {
-		data.datasets = computeDatasets(book);
-		console.log('updated dataset');
+		data = computeData(book);
+		console.log('updated dataset', data);
 	}
 </script>
 
 <Chart
 	{data}
-	lineOptions={{ hideDots: 1, spline: 0.25 }}
+	lineOptions={{ hideDots: 1, spline: 0 }}
 	axisOptions={{ xIsSeries: true }}
 	colors={['#888', 'blue']}
 	type="line"

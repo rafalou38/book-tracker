@@ -4,7 +4,7 @@
 	import { Button, Card, touchRipple } from '@rafaelmc-dev/konsta/svelte';
 
 	export let data: Book;
-	// const percent = Math.round((100 / (data.stats.pagesEnd - data.stats.pagesStart)) * 100);
+
 	const percent = Math.round(
 		(data.progress.current / (data.stats.pagesEnd - data.stats.pagesStart)) * 100
 	);
@@ -90,15 +90,16 @@
 	.planned {
 		background: gray;
 	}
-	.started {
-		background: green;
+	.reading {
+		background: LimeGreen;
 	}
 	.finished {
-		background: blue;
+		background: DodgerBlue;
 	}
 	.title {
 		position: absolute;
 		width: 100%;
+		color: white;
 		/* height: 2em; */
 		padding: 0.5em;
 		padding-top: 2em;
