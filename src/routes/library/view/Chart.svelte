@@ -8,7 +8,7 @@
 	const h24 = 1000 * 60 * 60 * 24;
 
 	let labels: number[] = [];
-	for (let i = book.progress.start; i < book.progress.eta; i += h24) {
+	for (let i = book.progress.start; i <= book.progress.eta; i += h24) {
 		const date = new Day(i);
 		labels.push(date.n());
 	}
@@ -16,14 +16,24 @@
 	function computeData(book: Book) {
 		const ref: number[] = [];
 		const cur: (number | undefined)[] = [];
-		let timestamp = book.progress.start;
+		let ofDay: number | undefined = undefined;
+
 		for (let i = 0; i < labels.length; i++) {
 			ref.push(Math.round((i / labels.length) * book.stats.pagesCount));
 
-			const ofDay = book.progress.daily.get(labels[i]);
-			if (ofDay) cur.push(ofDay);
-			else cur.push(undefined);
-			timestamp += h24;
+			ofDay = book.progress.daily.get(labels[i]) || ofDay;
+			// Check if it's the last one
+			if (ofDay)
+				check: {
+					for (let j = i; j < labels.length; j++) {
+						if (book.progress.daily.get(labels[j])) break check;
+					}
+					ofDay = undefined;
+				}
+
+			console.log(ofDay);
+
+			cur[i] = ofDay;
 		}
 
 		const localLabels = labels.map((n) =>

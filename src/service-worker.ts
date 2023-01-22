@@ -11,6 +11,8 @@ const to_cache = build.concat(files);
 const staticAssets = new Set(to_cache);
 
 worker.addEventListener('install', (event) => {
+	console.log(`[SW] Installed ${version}`);
+
 	event.waitUntil(
 		caches
 			.open(FILES)
@@ -22,12 +24,16 @@ worker.addEventListener('install', (event) => {
 });
 
 worker.addEventListener('activate', (event) => {
+	console.log('[SW] Activate');
+
 	event.waitUntil(
 		caches.keys().then(async (keys) => {
 			// delete old caches
 			for (const key of keys) {
 				if (key !== FILES) await caches.delete(key);
 			}
+
+			console.log('[SW] deleted caches');
 
 			worker.clients.claim();
 		})
@@ -66,15 +72,19 @@ worker.addEventListener('fetch', (event) => {
 	const skipBecauseUncached = event.request.cache === 'only-if-cached' && !isStaticAsset;
 
 	if (isHttp && !isDevServerRequest && !skipBecauseUncached) {
+		console.log(`[Service Worker] Loaded cache resource ${url}`);
 		event.respondWith(
 			(async () => {
 				// always serve static files and bundler-generated assets from cache.
 				// if your application has other URLs with data that will never change,
 				// set this variable to true for them and they will only be fetched once.
 				const cachedAsset = isStaticAsset && (await caches.match(event.request));
+				// console.log(cachedAsset);
 
 				return cachedAsset || fetchAndCache(event.request);
 			})()
 		);
+	} else {
+		console.log(`[Service Worker] Fetched resource ${url}`);
 	}
 });
