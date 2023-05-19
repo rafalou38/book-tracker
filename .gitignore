@@ -6,7 +6,6 @@ node_modules
 .env
 .env.*
 !.env.example
-books
 *.pem
 
 # Local Netlify folder
