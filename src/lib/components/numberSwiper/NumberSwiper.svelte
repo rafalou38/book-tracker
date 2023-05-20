@@ -47,11 +47,18 @@
 	$: {
 		if (swiper) swiper.setColumnValue(1, current);
 	}
+
+	function reduce() {
+		swiper.setColumnValue(1, 'down');
+	}
+	function increase() {
+		swiper.setColumnValue(1, 'up');
+	}
 </script>
 
 <div class="flex h-44">
-	<div class="w-1/3 grid place-items-center">
-		<Link iconOnly onClick={() => swiper.setColumnValue(1, 'down')}>
+	<div class="w-1/3 grid place-items-center" on:touchend={reduce}>
+		<Link iconOnly onClick={reduce}>
 			<i class="material-symbols-fill m-8"> remove </i>
 		</Link>
 	</div>
@@ -69,8 +76,8 @@
 			<input class="number-swiper-value" type="hidden" min="0" max="99" />
 		</div>
 	</div>
-	<div class="w-1/3 grid place-items-center">
-		<Link iconOnly onClick={() => swiper.setColumnValue(1, 'up')}>
+	<div class="w-1/3 grid place-items-center" on:touchend={increase}>
+		<Link iconOnly onClick={increase}>
 			<i class="material-symbols-fill  m-8"> add </i>
 		</Link>
 	</div>
