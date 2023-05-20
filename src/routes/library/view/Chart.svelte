@@ -7,6 +7,8 @@
 	export let book: Book;
 	const h24 = 1000 * 60 * 60 * 24;
 
+	let todayTarget = 0;
+
 	let labels: number[] = [];
 	for (let i = book.progress.start; i <= book.progress.eta; i += h24) {
 		const date = new Day(i);
@@ -19,7 +21,14 @@
 		let ofDay: number | undefined = undefined;
 
 		for (let i = 0; i < labels.length; i++) {
-			ref.push(Math.round((i / labels.length) * book.stats.pagesCount));
+			ref.push(
+				book.stats.pagesStart +
+					Math.round((i / (labels.length - 1)) * (book.stats.pagesEnd - book.stats.pagesStart))
+			);
+
+			if (labels[i] == new Day().n()) {
+				todayTarget = ref.at(-1) || 0;
+			}
 
 			ofDay = book.progress.daily.get(labels[i]) || ofDay;
 			// Check if it's the last one
@@ -67,6 +76,22 @@
 	}
 </script>
 
+<div class="text-center text-stone-400 w-max mx-auto">
+	{#if todayTarget > book.progress.current}
+		Objectif du jour:
+	{:else}
+		<br />
+		🎊 Objectif atteint
+		<!-- else content here -->
+	{/if}
+
+	<span class="text-black dark:text-white font-bold">{todayTarget}</span>
+
+	<div class="progress">
+		<div style="--value: {(book.progress.current / todayTarget) * 100}%" />
+	</div>
+</div>
+
 <Chart
 	{data}
 	lineOptions={{ hideDots: 1, spline: 0 }}
@@ -76,6 +101,18 @@
 />
 
 <style>
+	.progress {
+		background: var(--surface-2);
+		height: 2px;
+		width: 100%;
+		border-radius: 4px;
+		overflow: hidden;
+	}
+	.progress > div {
+		background: currentColor;
+		width: var(--value);
+		height: 100%;
+	}
 	:global(.nav .text-left) {
 		max-width: 80%;
 		text-overflow: ellipsis;
