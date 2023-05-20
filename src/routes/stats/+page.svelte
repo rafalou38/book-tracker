@@ -18,3 +18,5 @@
 		{/if}
 	</Link>
 </Navbar>
+
+<p class="w-full h-full grid place-items-center">Coming soon...</p>

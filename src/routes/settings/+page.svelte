@@ -21,8 +21,16 @@
 		{/if}
 	</Link>
 </Navbar>
-
-<Button class="btn-reset" outline onClick={() => (confirmClear = true)}>Clear database</Button>
+<div class="mt-8 mb-2 flex flex-col h-full">
+	<Button class="btn-reset" outline onClick={() => (confirmClear = true)}>Clear database</Button>
+	<div class="grow" />
+	<p class="text-center text-sm opacity-80">
+		<span class="opacity-80">Made by</span>
+		<span class="underline"
+			><a target="_blank" href="https://rafaelmc.netlify.app">Rafael Martinez</a></span
+		>
+	</p>
+</div>
 <Dialog
 	opened={confirmClear}
 	onBackdropClick={() => {
